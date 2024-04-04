@@ -1,11 +1,11 @@
 const { Pool } = require('pg');
 
 const pool = new Pool({
-    user: process.env.POSTGRES_USER,
-    database: process.env.POSTGRES_DB,
-    password: process.env.POSTGRES_PASSWORD,
-    host: process.env.POSTGRES_HOST,
-    port: +process.env.POSTGRES_PORT
+    user: 'postgres',
+    database: 'cloud-notify-db',
+    password: 'Zamb2753',
+    host: 'cloud-notify-database.cf4o0eie4xap.eu-north-1.rds.amazonaws.com',
+    port: 5432
 });
 
 module.exports = { pool };
