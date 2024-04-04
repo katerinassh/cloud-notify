@@ -1,0 +1,53 @@
+version: '1'
+
+networks:
+  app-network:
+    driver: bridge
+
+services:
+  db:
+    image: postgres:14.1-alpine
+    container_name: cloud-notify-postgres
+    restart: always
+    environment:
+      - POSTGRES_DB=cloud-notify-db
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=qoadmin
+    healthcheck:
+      test: >
+        psql postgresql://$${POSTGRES_USER}:$${POSTGRES_PASSWORD}@db/$${POSTGRES_DB} \
+          --tuples-only \
+          --command "select 'postgres is up';" \
+        || exit 1
+      interval: 5s
+      timeout: 3s
+      retries: 5
+    volumes:
+      - ./scripts/seed-test-data.sql:/docker-entrypoint-initdb.d/11-init.sql
+    ports:
+      - "5432:5432"
+    networks:
+      - app-network
+
+  app:
+    build:
+      context: .
+    image: cloud-notify-image
+    container_name: cloud-notify-app
+    ports:
+      - "27017:3000"
+    depends_on:
+      - db
+    links:
+      - db
+    restart: on-failure
+    environment:
+      - POSTGRES_HOST=cloud-notify-database.cf4o0eie4xap.eu-north-1.rds.amazonaws.com
+      - POSTGRES_PORT=5432
+      - POSTGRES_DB=cloud-notify-db
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=qoadmin
+    command: npm start
+    networks:
+      - app-network
+
