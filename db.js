@@ -5,7 +5,10 @@ const pool = new Pool({
     database: 'cloud-notify-db',
     password: 'Zamb2753',
     host: 'cloud-notify-database.cf4o0eie4xap.eu-north-1.rds.amazonaws.com',
-    port: 5432
+    port: 5432,
+    ssl: {
+        rejectUnauthorized: false
+    }
 });
 
 module.exports = { pool };
