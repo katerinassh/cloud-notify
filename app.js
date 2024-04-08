@@ -28,6 +28,7 @@ app.get('/', async (req, res) => {
       VALUES ('${ip}', (to_timestamp(${Date.now()} / 1000.0)))
       RETURNING *;`;
 
+  console.log(`Tuk-tuk from ${ip}`);
   try {
     const result = await db.pool.query(query);
     res.status(200).send(result.rows[0]);
