@@ -40,6 +40,8 @@ services:
       - db
     links:
       - db
+    env_file:
+      - .env
     restart: on-failure
     environment:
       - POSTGRES_HOST=${POSTGRES_HOST}
