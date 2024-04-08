@@ -18,7 +18,6 @@ app.get('/status', async (req, res) => {
   res.status(200).send({ status: 'running' });
 })
 app.get('/', async (req, res) => {
-  console.log(process.env.POSTGRES_HOST)
   const ip = req.ip;
   const geo = geoip.lookup(ip);
 
@@ -39,5 +38,6 @@ app.get('/', async (req, res) => {
 
 const port = 3000;
 app.listen(port, () => {
+  console.log(process.env.POSTGRES_HOST)
   console.log(`Server is listening on port ${port}`)
 })
