@@ -35,7 +35,7 @@ services:
     image: cloud-notify-image
     container_name: cloud-notify-app
     ports:
-      - "27017:3000"
+      - "80:3000"
     depends_on:
       - db
     links:
