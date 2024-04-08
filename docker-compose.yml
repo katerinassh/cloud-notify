@@ -44,6 +44,7 @@ services:
       - .env
     restart: on-failure
     environment:
+      - APP_PORT=${APP_PORT}
       - POSTGRES_HOST=${POSTGRES_HOST}
       - POSTGRES_PORT=${POSTGRES_PORT}
       - POSTGRES_DB=${POSTGRES_DB}

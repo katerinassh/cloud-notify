@@ -36,8 +36,7 @@ app.get('/', async (req, res) => {
   }
 })
 
-const port = 3000;
+const port = process.env.APP_PORT;
 app.listen(port, () => {
-  console.log(process.env.POSTGRES_HOST)
-  console.log(`Server is listening on port ${port}`)
+  console.log(`Server is listening on port ${port}`);
 })
